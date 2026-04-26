@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Parcelyt - Courier and Parcel Tracking System
 
 A full-stack MERN application for courier booking, shipment tracking, in-app account support messages, and admin delivery management.
@@ -243,3 +244,6 @@ REACT_APP_API_URL=https://your-backend-api.onrender.com/api
 ## Notes
 
 If this project is inside OneDrive, OneDrive may lock generated files in `frontend/build`. If normal production builds fail with permission errors, move the project outside OneDrive or exclude `frontend/build` from OneDrive sync.
+=======
+# courier-app
+>>>>>>> d8728cde4f437a84bfd3d43d58e25f9de1c76a3b
