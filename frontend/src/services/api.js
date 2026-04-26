@@ -5,13 +5,11 @@ const baseURL = rawBaseUrl
   ? rawBaseUrl.replace(/\/+$/, "")
   : "/api";
 
-// ✅ CREATE AXIOS INSTANCE (THIS WAS MISSING)
 const api = axios.create({
   baseURL,
   withCredentials: true,
 });
 
-// ✅ RESPONSE INTERCEPTOR
 api.interceptors.response.use(
   (res) => res,
   (err) => {
