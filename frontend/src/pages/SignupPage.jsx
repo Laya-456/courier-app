@@ -14,7 +14,7 @@ export default function SignupPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(form.email.trim())) return toast.error('Please use a valid Gmail address');
+    if (!/^[a-zA-Z0-9._%+\-]+@gmail\.com$/.test(form.email.trim())) return toast.error('Please use a valid Gmail address');
     if (form.password !== form.confirm) return toast.error('Passwords do not match');
     if (form.password.length < 6) return toast.error('Password must be at least 6 characters');
     setLoading(true);
@@ -69,7 +69,7 @@ export default function SignupPage() {
                   type="email"
                   className="input-dark pl-11"
                   placeholder="you@gmail.com"
-                  pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                  pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$"
                   title="Please use a valid Gmail address"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}

@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiPackage, FiArrowRight } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import api from '../services/api';
@@ -10,18 +10,19 @@ export default function LoginPage() {
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(form.email.trim())) return toast.error('Please use a valid Gmail address');
+    if (!form.email.endsWith("@gmail.com")) return toast.error('Please use a valid Gmail address');
     setLoading(true);
     try {
       const { data } = await api.post('/auth/login', { email: form.email, password: form.password });
+      console.log('LOGIN RESPONSE:', data);
       login(data, data.token);
       toast.success(`Welcome back, ${data.name}!`);
-      navigate(data.role === 'admin' ? '/admin' : '/dashboard');
+      window.location.href = data.role === 'admin' ? '/admin' : '/dashboard';
     } catch (err) {
+      console.log(err.response?.data || err.message);
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
@@ -57,7 +58,7 @@ export default function LoginPage() {
               <p className="text-slate-300">Access your account and manage your shipments.</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label className="block text-slate-300 text-sm font-medium mb-2">Email Address</label>
                 <div className="relative">
@@ -66,7 +67,7 @@ export default function LoginPage() {
                     type="email"
                     className="w-full rounded-2xl bg-white/10 border border-white/10 py-3 pl-12 pr-4 text-white placeholder-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/20 outline-none transition"
                     placeholder="you@gmail.com"
-                    pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                    pattern=".+@gmail\.com$"
                     title="Please use a valid Gmail address"
                     value={form.email}
                     onChange={e => setForm({ ...form, email: e.target.value })}
