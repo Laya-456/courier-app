@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { isGmailAddress, normalizeEmail } = require('../utils/email');
 
@@ -48,8 +49,22 @@ exports.login = async (req, res) => {
     }
 
     const user = await User.findOne({ email });
-    if (!user || !(await user.matchPassword(password)))
-      return res.status(401).json({ message: 'Invalid email or password' });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Entered password:', password);
+      console.log('DB password:', user.password);
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
     res.json({
       _id: user._id, name: user.name, email: user.email, role: user.role,
       token: generateToken(user._id)
