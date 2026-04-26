@@ -32,7 +32,7 @@ export default function AdminManagementPage() {
 
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
-    if (!/^[a-zA-Z0-9._%+\-]+@gmail\.com$/.test(adminForm.email.trim())) return toast.error('Admin email must be a valid Gmail address');
+    if (!adminForm.email.trim().toLowerCase().endsWith('@gmail.com')) return toast.error('Admin email must be a valid Gmail address');
     setCreatingAdmin(true);
     try {
       await api.post('/admin/create-admin', adminForm);
@@ -71,7 +71,7 @@ export default function AdminManagementPage() {
           </div>
           <div>
             <label className="block text-slate-400 text-sm mb-1.5">Email</label>
-            <input type="email" className="input-dark" placeholder="admin@gmail.com" pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$" title="Please use a valid Gmail address" value={adminForm.email} onChange={(e) => setAdminField('email', e.target.value)} required />
+            <input type="email" className="input-dark" placeholder="admin@gmail.com" pattern=".+@gmail\.com$" title="Please use a valid Gmail address" value={adminForm.email} onChange={(e) => setAdminField('email', e.target.value)} required />
           </div>
           <div>
             <label className="block text-slate-400 text-sm mb-1.5">Temporary Password</label>
