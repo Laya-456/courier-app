@@ -71,7 +71,7 @@ PORT=5000
 MONGO_URI=mongodb://localhost:27017/courierdb
 JWT_SECRET=replace_with_a_strong_secret
 JWT_EXPIRE=7d
-CORS_ORIGIN=http://localhost:3000
+CORS_ORIGIN=http://localhost:5173,http://localhost:3000
 ```
 
 Seed demo data:
@@ -93,16 +93,16 @@ npm start
 ```bash
 cd frontend
 npm install
-npm start
+npm run dev
 ```
 
 For local development, `frontend/.env.example` uses:
 
 ```env
-REACT_APP_API_URL=/api
+VITE_API_URL=/api
 ```
 
-The local app runs at `http://localhost:3000`. The backend API runs at `http://localhost:5000`.
+The local app runs at `http://localhost:5173`. The backend API runs at `http://localhost:5000`.
 
 ## Demo Credentials
 
@@ -227,7 +227,7 @@ npm run build
 Set:
 
 ```env
-REACT_APP_API_URL=https://your-backend-api.onrender.com/api
+VITE_API_URL=https://your-backend-api.onrender.com/api
 ```
 
 ## Recommended Next Improvements
@@ -243,7 +243,4 @@ REACT_APP_API_URL=https://your-backend-api.onrender.com/api
 
 ## Notes
 
-If this project is inside OneDrive, OneDrive may lock generated files in `frontend/build`. If normal production builds fail with permission errors, move the project outside OneDrive or exclude `frontend/build` from OneDrive sync.
-=======
-# courier-app
->>>>>>> d8728cde4f437a84bfd3d43d58e25f9de1c76a3b
+If this project is inside OneDrive, OneDrive may lock generated files in `frontend/dist`. If normal production builds fail with permission errors, move the project outside OneDrive or exclude `frontend/dist` from OneDrive sync.

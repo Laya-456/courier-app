@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const rawBaseUrl = process.env.REACT_APP_API_URL?.trim();
+const rawBaseUrl = (
+  import.meta.env.VITE_API_URL ||
+  import.meta.env.REACT_APP_API_URL
+)?.trim();
 const baseURL = rawBaseUrl
   ? rawBaseUrl.replace(/\/+$/, "")
   : "/api";
